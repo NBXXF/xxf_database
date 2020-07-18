@@ -1,0 +1,4 @@
+rootProject.name='xxf_database'
+include ':app'
+include ':xxf_realm'
+include ':xxf_objectbox'
