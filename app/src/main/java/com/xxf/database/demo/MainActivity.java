@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.xxf.database.xxf.objectbox.id.IdUtils;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
@@ -39,13 +40,20 @@ public class MainActivity extends AppCompatActivity {
         Log.d("============>hash", ("ABC".hashCode()) + "");
         Log.d("============>hash1", "" + IdUtils.generateId("ABC"));
         msg = findViewById(R.id.text);
+        TestDao r = new TestDao(this);
+        try {
+            r.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         testDao = new TestDao(this);
+
         testDao.clear();
         findViewById(R.id.insert)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                       // testDao.insert(new TestBean(IdUtils.generateId(name), name, "time_" + System.currentTimeMillis()))
+                        // testDao.insert(new TestBean(IdUtils.generateId(name), name, "time_" + System.currentTimeMillis()))
                         testDao.insert(new TestBean(IdUtils.generateId(String.valueOf(new Random().nextInt(10))), name, "time_" + System.currentTimeMillis()))
                                 .subscribe(new io.reactivex.functions.Consumer<Long>() {
                                     @Override

@@ -2,6 +2,7 @@ package com.xxf.database.xxf.objectbox;
 
 import com.xxf.database.xxf.objectbox.box.Empty;
 
+import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.List;
@@ -28,6 +29,11 @@ public class ObjectBoxDao<T> implements IObjectBoxDao<T> {
 
     public ObjectBoxDao(@NonNull BoxStore boxStore) {
         this.boxStore = Objects.requireNonNull(boxStore);
+    }
+
+    @Override
+    public boolean isClosed() {
+        return boxStore == null || boxStore.isClosed();
     }
 
     /**
@@ -253,4 +259,10 @@ public class ObjectBoxDao<T> implements IObjectBoxDao<T> {
         }).subscribeOn(Schedulers.io());
     }
 
+    @Override
+    public void close() throws IOException {
+        if (boxStore != null && !boxStore.isClosed()) {
+            boxStore.close();
+        }
+    }
 }

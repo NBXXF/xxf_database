@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.xxf.database.xxf.objectbox.ObjectBoxDao;
 
+import java.io.File;
+
 import io.objectbox.BoxStore;
 
 /**
@@ -13,6 +15,7 @@ import io.objectbox.BoxStore;
  */
 public class TestDao extends ObjectBoxDao<TestBean> {
     public TestDao(Context context) {
-        super(MyObjectBox.builder().androidContext(context).build());
+        // super(MyObjectBox.builder().androidContext(context).build());
+        super(MyObjectBox.builder().directory(new File(context.getCacheDir(), "testBox")).build());
     }
 }

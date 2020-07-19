@@ -3,6 +3,7 @@ package com.xxf.database.xxf.objectbox;
 
 import com.xxf.database.xxf.objectbox.box.Empty;
 
+import java.io.Closeable;
 import java.util.Collection;
 import java.util.List;
 
@@ -16,7 +17,12 @@ import io.reactivex.Observable;
  * @Author: XGod
  * @CreateDate: 2020/7/18 12:54
  */
-interface IObjectBoxDao<T> {
+interface IObjectBoxDao<T> extends Closeable {
+    /**
+     * 数据库连接是否关闭
+     * @return
+     */
+    boolean isClosed();
     /**
      * 获取class对象
      *
