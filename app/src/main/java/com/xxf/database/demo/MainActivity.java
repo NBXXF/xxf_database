@@ -11,9 +11,16 @@ import android.widget.TextView;
 import com.xxf.database.xxf.objectbox.id.IdUtils;
 
 import java.util.List;
+import java.util.Random;
 
+import io.objectbox.android.AndroidScheduler;
 import io.objectbox.android.ObjectBoxDataSource;
+import io.objectbox.reactive.DataObserver;
+import io.objectbox.reactive.DataSubscriptionList;
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +28,10 @@ public class MainActivity extends AppCompatActivity {
     TestDao testDao;
     private Handler handler = new Handler();
     TextView msg;
-    String name="张三";
+    String name = "张三";
+    DataSubscriptionList dataSubscriptionList = new DataSubscriptionList();
+    Observable<List<TestBean>> listObservable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        testDao.insert(new TestBean(IdUtils.generateId(name),name,"time_" + System.currentTimeMillis()))
+                       // testDao.insert(new TestBean(IdUtils.generateId(name), name, "time_" + System.currentTimeMillis()))
+                        testDao.insert(new TestBean(IdUtils.generateId(String.valueOf(new Random().nextInt(10))), name, "time_" + System.currentTimeMillis()))
                                 .subscribe(new io.reactivex.functions.Consumer<Long>() {
                                     @Override
                                     public void accept(Long aLong) throws Exception {
@@ -44,7 +55,9 @@ public class MainActivity extends AppCompatActivity {
                                 });
                     }
                 });
-        testDao.observable(testDao.buildQuery().equal(TestBean_.name,name).build())
+        listObservable =
+                testDao.observable();
+        listObservable
                 .subscribe(new Consumer<List<TestBean>>() {
                     @Override
                     public void accept(List<TestBean> testBeans) throws Exception {
@@ -56,12 +69,10 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                     }
-                });
-        testDao.query()
-                .subscribe(new Consumer<List<TestBean>>() {
+                }, new Consumer<Throwable>() {
                     @Override
-                    public void accept(List<TestBean> testBeans) throws Exception {
-                        Log.d("=========>query:",""+testBeans);
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.d("======>update", "t:" + throwable);
                     }
                 });
     }

@@ -21,7 +21,7 @@ public class TestBean {
                 "_id=" + _id +
                 ", name='" + name + '\'' +
                 ", msg='" + msg + '\'' +
-                '}';
+                '}'+"\n";
     }
 
     public TestBean() {

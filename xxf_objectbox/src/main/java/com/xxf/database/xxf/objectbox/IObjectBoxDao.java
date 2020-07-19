@@ -26,6 +26,7 @@ interface IObjectBoxDao<T> {
 
     /**
      * 插入
+     *
      * @param t
      * @return
      */
@@ -33,6 +34,7 @@ interface IObjectBoxDao<T> {
 
     /**
      * 批量插入
+     *
      * @param t
      * @return
      */
@@ -40,6 +42,7 @@ interface IObjectBoxDao<T> {
 
     /**
      * 批量插入
+     *
      * @param t
      * @return
      */
@@ -47,6 +50,7 @@ interface IObjectBoxDao<T> {
 
     /**
      * 删除
+     *
      * @param t
      * @return
      */
@@ -54,6 +58,7 @@ interface IObjectBoxDao<T> {
 
     /**
      * 批量删除
+     *
      * @param t
      * @return
      */
@@ -61,6 +66,7 @@ interface IObjectBoxDao<T> {
 
     /**
      * 批量删除
+     *
      * @param t
      * @return
      */
@@ -68,6 +74,7 @@ interface IObjectBoxDao<T> {
 
     /**
      * 全部删除
+     *
      * @return
      */
     Observable<Empty> clear();
@@ -77,7 +84,7 @@ interface IObjectBoxDao<T> {
     Observable<List<T>> query();
 
     /**
-     * 观察数据变化
+     * 观察数据变化,注意一定要写成成员变量
      *
      * @return
      */
@@ -85,7 +92,7 @@ interface IObjectBoxDao<T> {
 
 
     /**
-     * 观察数据变化
+     * 观察数据变化,注意一定要写成成员变量
      *
      * @return
      */
@@ -94,6 +101,7 @@ interface IObjectBoxDao<T> {
 
     /**
      * 查询
+     *
      * @param offset
      * @param limit
      * @return
@@ -102,6 +110,7 @@ interface IObjectBoxDao<T> {
 
     /**
      * 多条件查询
+     *
      * @param property
      * @param values
      * @return
@@ -110,6 +119,7 @@ interface IObjectBoxDao<T> {
 
     /**
      * equals 查询
+     *
      * @param property
      * @param value
      * @return
@@ -118,6 +128,7 @@ interface IObjectBoxDao<T> {
 
     /**
      * 模糊查询
+     *
      * @param property
      * @param value
      * @return
@@ -133,6 +144,7 @@ interface IObjectBoxDao<T> {
 
     /**
      * 查询第一个
+     *
      * @param query
      * @return
      */
@@ -140,6 +152,7 @@ interface IObjectBoxDao<T> {
 
     /**
      * 查询
+     *
      * @param query
      * @return
      */
@@ -147,6 +160,7 @@ interface IObjectBoxDao<T> {
 
     /**
      * 按条件查询
+     *
      * @param query
      * @param offset
      * @param limit
