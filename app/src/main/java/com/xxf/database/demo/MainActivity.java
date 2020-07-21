@@ -26,7 +26,6 @@ import io.reactivex.schedulers.Schedulers;
 public class MainActivity extends AppCompatActivity {
 
 
-    TestDao testDao;
     private Handler handler = new Handler();
     TextView msg;
     String name = "张三";
@@ -40,30 +39,21 @@ public class MainActivity extends AppCompatActivity {
         Log.d("============>hash", ("ABC".hashCode()) + "");
         Log.d("============>hash1", "" + IdUtils.generateId("ABC"));
         msg = findViewById(R.id.text);
-        TestDao r = new TestDao(this);
-        try {
-            r.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        testDao = new TestDao(this);
-
-        testDao.clear();
         findViewById(R.id.insert)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         // testDao.insert(new TestBean(IdUtils.generateId(name), name, "time_" + System.currentTimeMillis()))
-                        testDao.insert(new TestBean(IdUtils.generateId(String.valueOf(new Random().nextInt(10))), name, "time_" + System.currentTimeMillis()))
+                  /*      testDao.insert(new TestBean(IdUtils.generateId(String.valueOf(new Random().nextInt(10))), name, "time_" + System.currentTimeMillis()))
                                 .subscribe(new io.reactivex.functions.Consumer<Long>() {
                                     @Override
                                     public void accept(Long aLong) throws Exception {
                                         Log.d("======>insert", "" + aLong);
                                     }
-                                });
+                                });*/
                     }
                 });
-        listObservable =
+      /*  listObservable =
                 testDao.observable();
         listObservable
                 .subscribe(new Consumer<List<TestBean>>() {
@@ -82,6 +72,6 @@ public class MainActivity extends AppCompatActivity {
                     public void accept(Throwable throwable) throws Exception {
                         Log.d("======>update", "t:" + throwable);
                     }
-                });
+                });*/
     }
 }
