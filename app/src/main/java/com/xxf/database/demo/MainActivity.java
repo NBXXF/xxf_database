@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.xxf.database.xxf.objectbox.id.IdUtils;
 
 import java.io.IOException;
@@ -22,6 +24,7 @@ import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import io.realm.RealmList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
     String name = "张三";
     DataSubscriptionList dataSubscriptionList = new DataSubscriptionList();
     Observable<List<TestBean>> listObservable;
+
+    static class U {
+        String name;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        RealmList<List<String>> lists = new Gson().toJson("", new TypeToken<List<String>>() {
+                        }.getType());
                         // testDao.insert(new TestBean(IdUtils.generateId(name), name, "time_" + System.currentTimeMillis()))
                   /*      testDao.insert(new TestBean(IdUtils.generateId(String.valueOf(new Random().nextInt(10))), name, "time_" + System.currentTimeMillis()))
                                 .subscribe(new io.reactivex.functions.Consumer<Long>() {

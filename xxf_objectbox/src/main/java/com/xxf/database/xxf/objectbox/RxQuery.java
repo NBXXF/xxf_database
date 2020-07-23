@@ -111,6 +111,36 @@ public abstract class RxQuery {
     }
 
     /**
+     * 只观察变化  .onlyChanges()
+     * The returned Observable emits Query results as Lists.
+     * Never completes, so you will get updates when underlying data changes
+     * (see {@link Query#subscribe()} for details).
+     */
+    public static <T> Observable<List<T>> observableChange(final Query<T> query) {
+        return Observable.create(new ObservableOnSubscribe<List<T>>() {
+            @Override
+            public void subscribe(final ObservableEmitter<List<T>> emitter) throws Exception {
+                final DataSubscription dataSubscription = query.subscribe()
+                        .onlyChanges()
+                        .observer(new DataObserver<List<T>>() {
+                            @Override
+                            public void onData(List<T> data) {
+                                if (!emitter.isDisposed()) {
+                                    emitter.onNext(data);
+                                }
+                            }
+                        });
+                emitter.setCancellable(new Cancellable() {
+                    @Override
+                    public void cancel() throws Exception {
+                        dataSubscription.cancel();
+                    }
+                });
+            }
+        });
+    }
+
+    /**
      * The returned Single emits one Query result as a List.
      */
     public static <T> Single<List<T>> single(final Query<T> query) {
