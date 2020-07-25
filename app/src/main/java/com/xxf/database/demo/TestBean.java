@@ -1,7 +1,9 @@
 package com.xxf.database.demo;
 
+import io.objectbox.annotation.Backlink;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
+import io.objectbox.relation.ToMany;
 
 /**
  * @Description: java描述
@@ -14,6 +16,8 @@ public class TestBean {
     private long _id;
     String name;
     String msg;
+    @Backlink(to = "test")
+    ToMany<Child> child;
 
     @Override
     public String toString() {
@@ -21,7 +25,8 @@ public class TestBean {
                 "_id=" + _id +
                 ", name='" + name + '\'' +
                 ", msg='" + msg + '\'' +
-                '}'+"\n";
+                ", child=" + child +
+                '}';
     }
 
     public TestBean() {
@@ -31,6 +36,18 @@ public class TestBean {
     public TestBean(long _id,String name, String msg) {
         this._id = _id;
         this.name=name;
+        this.msg = msg;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMsg(String msg) {
         this.msg = msg;
     }
 
@@ -44,5 +61,13 @@ public class TestBean {
 
     public void set_id(long _id) {
         this._id = _id;
+    }
+
+    public ToMany<Child> getChild() {
+        return child;
+    }
+
+    public void setChild(ToMany<Child> child) {
+        this.child = child;
     }
 }

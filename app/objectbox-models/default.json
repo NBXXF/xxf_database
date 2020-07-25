@@ -26,17 +26,51 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "2:6415339644555070544",
+      "lastPropertyId": "4:114152853455387935",
+      "name": "Child",
+      "properties": [
+        {
+          "id": "1:7995415314729088777",
+          "name": "_id",
+          "type": 6,
+          "flags": 129
+        },
+        {
+          "id": "2:388200131046846953",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:8456826515855911191",
+          "name": "msg",
+          "type": 9
+        },
+        {
+          "id": "4:114152853455387935",
+          "name": "testId",
+          "indexId": "1:6342368887266795426",
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "TestBean"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "1:8766106120728874399",
-  "lastIndexId": "0:0",
-  "lastRelationId": "0:0",
+  "lastEntityId": "2:6415339644555070544",
+  "lastIndexId": "1:6342368887266795426",
+  "lastRelationId": "1:8671041080573297725",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
   "retiredIndexUids": [],
   "retiredPropertyUids": [],
-  "retiredRelationUids": [],
+  "retiredRelationUids": [
+    8671041080573297725
+  ],
   "version": 1
 }

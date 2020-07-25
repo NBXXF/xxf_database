@@ -12,7 +12,7 @@
           "id": "1:3258014562641573007",
           "name": "_id",
           "type": 6,
-          "flags": 1
+          "flags": 129
         },
         {
           "id": "2:5807269824238830894",
@@ -25,12 +25,42 @@
           "type": 9
         }
       ],
+      "relations": [
+        {
+          "id": "1:8671041080573297725",
+          "name": "child",
+          "targetId": "2:6415339644555070544"
+        }
+      ]
+    },
+    {
+      "id": "2:6415339644555070544",
+      "lastPropertyId": "3:8456826515855911191",
+      "name": "Child",
+      "properties": [
+        {
+          "id": "1:7995415314729088777",
+          "name": "_id",
+          "type": 6,
+          "flags": 129
+        },
+        {
+          "id": "2:388200131046846953",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:8456826515855911191",
+          "name": "msg",
+          "type": 9
+        }
+      ],
       "relations": []
     }
   ],
-  "lastEntityId": "1:8766106120728874399",
+  "lastEntityId": "2:6415339644555070544",
   "lastIndexId": "0:0",
-  "lastRelationId": "0:0",
+  "lastRelationId": "1:8671041080573297725",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,

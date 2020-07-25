@@ -1,86 +1,82 @@
 package com.xxf.database.demo;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.xxf.database.xxf.objectbox.MergeFunction;
+import com.xxf.database.xxf.objectbox.XXFObjectBoxUtils;
 import com.xxf.database.xxf.objectbox.id.IdUtils;
 
-import java.io.IOException;
+import java.io.File;
 import java.util.List;
-import java.util.Random;
 
+import io.objectbox.BoxStore;
 import io.objectbox.android.AndroidScheduler;
-import io.objectbox.android.ObjectBoxDataSource;
 import io.objectbox.reactive.DataObserver;
 import io.objectbox.reactive.DataSubscriptionList;
-import io.reactivex.Observable;
-import io.reactivex.Scheduler;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
-import io.realm.RealmList;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    private Handler handler = new Handler();
     TextView msg;
     String name = "张三";
     DataSubscriptionList dataSubscriptionList = new DataSubscriptionList();
-    Observable<List<TestBean>> listObservable;
-
-    static class U {
-        String name;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d("============>hash", ("ABC".hashCode()) + "");
-        Log.d("============>hash1", "" + IdUtils.generateId("ABC"));
         msg = findViewById(R.id.text);
+        Log.d("==========>", "" + IdUtils.generateId("BTC-SWAP"));
+        final BoxStore build = MyObjectBox.builder().directory(new File(getCacheDir(), "xxx2")).build();
         findViewById(R.id.insert)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        RealmList<List<String>> lists = new Gson().toJson("", new TypeToken<List<String>>() {
-                        }.getType());
-                        // testDao.insert(new TestBean(IdUtils.generateId(name), name, "time_" + System.currentTimeMillis()))
-                  /*      testDao.insert(new TestBean(IdUtils.generateId(String.valueOf(new Random().nextInt(10))), name, "time_" + System.currentTimeMillis()))
-                                .subscribe(new io.reactivex.functions.Consumer<Long>() {
-                                    @Override
-                                    public void accept(Long aLong) throws Exception {
-                                        Log.d("======>insert", "" + aLong);
-                                    }
-                                });*/
+                        TestBean testBean = new TestBean(IdUtils.generateId(name), name, "" + System.currentTimeMillis());
+                        build.boxFor(TestBean.class)
+                                .put(testBean);
+
+
                     }
                 });
-      /*  listObservable =
-                testDao.observable();
-        listObservable
-                .subscribe(new Consumer<List<TestBean>>() {
+        findViewById(R.id.update)
+                .setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void accept(List<TestBean> testBeans) throws Exception {
-                        Log.d("======>update", "" + testBeans);
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                msg.setText("" + testBeans);
-                            }
-                        });
+                    public void onClick(View v) {
+                        TestBean testBean = new TestBean(IdUtils.generateId(name), name, null);
+                        try {
+                            XXFObjectBoxUtils.put(build.boxFor(TestBean.class), testBean, new MergeFunction<TestBean>() {
+                                @Override
+                                public TestBean apply(@NonNull TestBean insert, @Nullable TestBean inserted) throws Exception {
+                                    if (inserted != null) {
+                                        insert.setMsg(inserted.getMsg()+" haha");
+                                    }
+                                    return insert;
+                                }
+                            });
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                }, new Consumer<Throwable>() {
+                });
+        build.boxFor(TestBean.class)
+                .query()
+                .equal(TestBean_.name, name)
+                .build()
+                .subscribe(dataSubscriptionList)
+                .on(AndroidScheduler.mainThread())
+                .observer(new DataObserver<List<TestBean>>() {
                     @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        Log.d("======>update", "t:" + throwable);
+                    public void onData(List<TestBean> data) {
+
+                        msg.setText("" + data);
                     }
-                });*/
+                });
     }
 }
