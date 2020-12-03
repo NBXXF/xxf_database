@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public TestBean apply(@NonNull TestBean insert, @Nullable TestBean inserted) throws Exception {
                                     if (inserted != null) {
-                                        insert.setMsg(inserted.getMsg()+" haha");
+                                        insert.setMsg(inserted.getMsg() + " haha");
                                     }
                                     return insert;
                                 }
@@ -78,5 +78,9 @@ public class MainActivity extends AppCompatActivity {
                         msg.setText("" + data);
                     }
                 });
+
+        long l = IdUtils.generateId(null);
+        long l2 = IdUtils.generateId("");
+        System.out.println("=====================>id:" + l + "  " + l2);
     }
 }

@@ -14,6 +14,6 @@ public class IdUtils {
      * @return
      */
     public static long generateId(String id) {
-        return MurmurHash.hash32(id);
+        return MurmurHash.hash32(id == null ? "" : id);
     }
 }
