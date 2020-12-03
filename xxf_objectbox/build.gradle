@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-//apply plugin: 'io.objectbox' // apply last
+apply plugin: 'io.objectbox' // apply last
 android {
     compileSdkVersion 28
 
@@ -27,7 +27,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compileOnly 'io.objectbox:objectbox-rxjava:2.4.0'
     compileOnly 'io.reactivex.rxjava2:rxjava:2.2.12'
     compileOnly 'androidx.annotation:annotation:1.0.0'
 

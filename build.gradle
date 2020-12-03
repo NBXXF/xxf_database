@@ -1,16 +1,16 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    
+
     repositories {
         google()
         jcenter()
-        
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.1'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        classpath "io.objectbox:objectbox-gradle-plugin:3.0.0-alpha2"
+        classpath "io.objectbox:objectbox-gradle-plugin:2.8.1"
         classpath "io.realm:realm-gradle-plugin:3.1.1"
 
 
@@ -23,7 +23,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+
     }
 }
 
