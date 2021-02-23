@@ -29,5 +29,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     compileOnly 'io.reactivex.rxjava3:rxjava:3.0.8'
     compileOnly 'androidx.annotation:annotation:1.0.0'
+    compileOnly 'com.google.code.gson:gson:2.8.6'
 
 }
