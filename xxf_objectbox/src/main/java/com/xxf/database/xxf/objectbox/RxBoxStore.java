@@ -19,10 +19,10 @@ package com.xxf.database.xxf.objectbox;
 import io.objectbox.BoxStore;
 import io.objectbox.reactive.DataObserver;
 import io.objectbox.reactive.DataSubscription;
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.functions.Cancellable;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableEmitter;
+import io.reactivex.rxjava3.core.ObservableOnSubscribe;
+import io.reactivex.rxjava3.functions.Cancellable;
 
 /**
  * Static methods to Rx-ify ObjectBox queries.
